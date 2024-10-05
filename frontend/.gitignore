@@ -2,25 +2,23 @@
 node_modules/
 
 # Build output
-/build
-/dist
-
-# Logs
-logs
-*.log
+dist/
+build/
 
 # Environment variables
 .env
 
-# OS-specific files
-.DS_Store
-Thumbs.db
+# Logs
+logs/
+*.log
 
 # Temporary files
 *.tmp
 *.temp
 
-# Ignore local configuration files
-*.local
+# OS-specific files
+.DS_Store
+Thumbs.db
 
-
+# Other specific files to ignore (if any)
+*.cache

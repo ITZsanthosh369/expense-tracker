@@ -1,7 +1,7 @@
 const User = require('../models/UserModel');
 const jwt = require('jsonwebtoken');
 
-// In your controller (e.g., auth.js)
+// Register User
 exports.registerUser = async (req, res) => {
     const { username, email, password } = req.body;
 

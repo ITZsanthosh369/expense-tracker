@@ -5,17 +5,20 @@ node_modules/
 .env
 
 # Logs
-logs
+logs/
 *.log
-
-# OS-specific files
-.DS_Store
-Thumbs.db
 
 # Temporary files
 *.tmp
 *.temp
 
-# Ignore build output (if applicable)
+# Build output
 dist/
 build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Other specific files to ignore (if any)
+*.sqlite
