@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -54,6 +54,9 @@ function Register() {
                 />
                 <button type="submit">Register</button>
             </form>
+            <p>
+                Already have an account?<Link to="/login">Login to your Account</Link>
+            </p> {}
         </RegisterStyled>
     );
 }
