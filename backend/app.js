@@ -17,6 +17,7 @@ readdirSync('./routes').map((routeFile) => {
     app.use('/api/v1', route); // This is where the route is being used
 });
 
+
 const authRoutes = require('./routes/auth');
 app.use('/api/v1/auth', authRoutes);  // Separate route for auth
 
