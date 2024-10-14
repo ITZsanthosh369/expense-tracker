@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useGlobalContext } from '../../context/globalContext';
 
-const BASE_URL = "http://localhost:5000/api/v1/auth/";
+const BASE_URL = "https://trackx-3mni4ufp.b4a.run/api/v1/auth/";
 
 function Login({ onLogin }) {
     const { setToken } = useGlobalContext();
