@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 // Middlewares
 app.use(express.json());
 const corsOptions = {
-    origin: 'https://expense-tracker-fzdr.vercel.app/', // Your Vercel frontend URL
+    origin: 'https://expense-tracker-fzdr.vercel.app', // Your Vercel frontend URL
     optionsSuccessStatus: 200,
   };
   
