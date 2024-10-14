@@ -69,7 +69,6 @@ function IncomeItem({
 }
 
 
-
 const IncomeItemStyled = styled.div`
     background: #FCF6F9;
     border: 2px solid #FFFFFF;
@@ -82,7 +81,8 @@ const IncomeItemStyled = styled.div`
     gap: 1rem;
     width: 100%;
     color: #222260;
-    .icon{
+
+    .icon {
         width: 80px;
         height: 80px;
         border-radius: 20px;
@@ -91,21 +91,23 @@ const IncomeItemStyled = styled.div`
         align-items: center;
         justify-content: center;
         border: 2px solid #FFFFFF;
-        i{
+        i {
             font-size: 2.6rem;
         }
     }
 
-    .content{
+    .content {
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: .2rem;
-        h5{
+        
+        h5 {
             font-size: 1.3rem;
             padding-left: 2rem;
             position: relative;
-            &::before{
+
+            &::before {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -118,15 +120,17 @@ const IncomeItemStyled = styled.div`
             }
         }
 
-        .inner-content{
+        .inner-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .text{
+
+            .text {
                 display: flex;
                 align-items: center;
                 gap: 1.5rem;
-                p{
+                
+                p {
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
@@ -136,6 +140,65 @@ const IncomeItemStyled = styled.div`
             }
         }
     }
+
+    // Media Queries for Responsiveness
+    @media (max-width: 768px) {
+        padding: 0.8rem;
+        
+        .icon {
+            width: 60px;
+            height: 60px;
+            
+            i {
+                font-size: 2rem;
+            }
+        }
+
+        .content {
+            h5 {
+                font-size: 1.1rem;
+                padding-left: 1.5rem;
+            }
+
+            .inner-content {
+                flex-direction: column;
+                align-items: flex-start;
+
+                .text {
+                    flex-direction: column;
+                    gap: 0.8rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 0.6rem;
+        margin-bottom: 0.8rem;
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            
+            i {
+                font-size: 1.8rem;
+            }
+        }
+
+        .content {
+            h5 {
+                font-size: 1rem;
+                padding-left: 1rem;
+            }
+
+            .inner-content {
+                .text {
+                    gap: 0.5rem;
+                }
+            }
+        }
+    }
 `;  
+
 
 export default IncomeItem

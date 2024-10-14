@@ -45,8 +45,15 @@ function Income() {
 
 const IncomeStyled = styled.div`
     display: flex;
+    flex-direction: column;
     overflow: auto;
-    .total-income{
+
+    h1 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .total-income {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,17 +65,73 @@ const IncomeStyled = styled.div`
         margin: 1rem 0;
         font-size: 2rem;
         gap: .5rem;
-        span{
+        
+        span {
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--color-green);
         }
     }
-    .income-content{
+
+    .income-content {
         display: flex;
         gap: 2rem;
-        .incomes{
+        
+        .form-container {
             flex: 1;
+        }
+
+        .incomes {
+            flex: 2;
+        }
+    }
+
+    // Media Queries for Mobile Responsiveness
+    @media (max-width: 1024px) {
+        .income-content {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .total-income {
+            font-size: 1.8rem;
+            span {
+                font-size: 2rem;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .income-content {
+            flex-direction: column;
+        }
+
+        .total-income {
+            font-size: 1.5rem;
+            span {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .total-income {
+            font-size: 1.3rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+
+            span {
+                font-size: 1.6rem;
+            }
+        }
+
+        .income-content {
+            gap: 1rem;
+
+            .form-container,
+            .incomes {
+                flex: 1;
+            }
         }
     }
 `;

@@ -175,6 +175,22 @@ const ExpenseFormStyled = styled.form`
     .error {
         color: red; // Style for error messages
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        gap: 1rem; // Reduce gap between inputs
+
+        input, textarea, select {
+            padding: .4rem; // Smaller padding
+            font-size: 1rem; // Adjust font size for smaller screens
+        }
+
+        .submit-btn {
+            button {
+                padding: .6rem 1.2rem; // Adjust button padding for mobile
+            }
+        }
+    }
 `;
 
 export default ExpenseForm;

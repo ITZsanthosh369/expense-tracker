@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import avatar from '../../img/avatar.png';
-import { signout } from '../../utils/Icons'; // Assuming signout is an icon
-import { menuItems } from '../../utils/menuItems'; // Adjust this path as necessary
+import { signout } from '../../utils/Icons'; 
+import { menuItems } from '../../utils/menuItems'; 
 
 function Navigation({ active, setActive, onLogout }) {
     return (
@@ -50,6 +50,26 @@ const NavStyled = styled.nav`
     justify-content: space-between;
     gap: 2rem;
 
+    @media (max-width: 1024px) {
+        width: 300px;
+        padding: 1.5rem 1rem;
+    }
+
+    @media (max-width: 768px) {
+        width: 250px;
+    }
+
+    @media (max-width: 480px) {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+
     .user-con {
         height: 100px;
         display: flex;
@@ -65,14 +85,32 @@ const NavStyled = styled.nav`
             border: 2px solid #FFFFFF;
             padding: .2rem;
             box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
+
+            @media (max-width: 768px) {
+                width: 60px;
+                height: 60px;
+            }
+
+            @media (max-width: 480px) {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         h2 {
             color: rgba(34, 34, 96, 1);
+
+            @media (max-width: 480px) {
+                font-size: 1rem;
+            }
         }
 
         p {
             color: rgba(34, 34, 96, .6);
+
+            @media (max-width: 480px) {
+                font-size: 0.8rem;
+            }
         }
     }
 
@@ -97,26 +135,34 @@ const NavStyled = styled.nav`
                 color: rgba(34, 34, 96, 0.6);
                 font-size: 1.4rem;
                 transition: all .4s ease-in-out;
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                padding-left: 0.5rem;
             }
         }
-    }
 
-    .active {
-        color: rgba(34, 34, 96, 1) !important;
-
-        i {
+        .active {
             color: rgba(34, 34, 96, 1) !important;
-        }
 
-        &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: #222260;
-            border-radius: 0 10px 10px 0;
+            i {
+                color: rgba(34, 34, 96, 1) !important;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 4px;
+                height: 100%;
+                background: #222260;
+                border-radius: 0 10px 10px 0;
+            }
         }
     }
 
@@ -133,6 +179,10 @@ const NavStyled = styled.nav`
 
                 &:hover {
                     color: rgba(34, 34, 96, 0.8);
+                }
+
+                @media (max-width: 480px) {
+                    font-size: 0.9rem;
                 }
             }
         }

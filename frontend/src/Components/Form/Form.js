@@ -1,36 +1,35 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import DatePicker from 'react-datepicker'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
 
 function Form() {
-    const { addIncome, getIncomes, error, setError } = useGlobalContext()
+    const { addIncome, error, setError } = useGlobalContext();
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
         date: '',
         category: '',
         description: '',
-    })
+    });
 
     const { title, amount, date, category, description } = inputState;
 
     const handleInput = name => e => {
         setInputState({ ...inputState, [name]: e.target.value });
         setError('');
-    }
+    };
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        // Parse amount as a float and check if it is a positive number
-        const parsedAmount = parseFloat(amount); // Convert amount to number
+        const parsedAmount = parseFloat(amount);
 
-        if (!isNaN(parsedAmount) && parsedAmount > 0) { // Ensure it's a valid positive number
-            addIncome({ ...inputState, amount: parsedAmount }); // Add parsed amount to the income
+        if (!isNaN(parsedAmount) && parsedAmount > 0) {
+            addIncome({ ...inputState, amount: parsedAmount });
             setInputState({
                 title: '',
                 amount: '',
@@ -39,9 +38,9 @@ function Form() {
                 description: '',
             });
         } else {
-            setError("Please enter a valid positive amount."); // Set an error if the amount is invalid
+            setError("Please enter a valid positive amount.");
         }
-    }
+    };
 
     return (
         <FormStyled onSubmit={handleSubmit}>
@@ -89,7 +88,15 @@ function Form() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Reference' id="description" cols="30" rows="4" onChange={handleInput('description')}></textarea>
+                <textarea 
+                    name="description" 
+                    value={description} 
+                    placeholder='Add A Reference' 
+                    id="description" 
+                    cols="30" 
+                    rows="4" 
+                    onChange={handleInput('description')}
+                />
             </div>
             <div className="submit-btn">
                 <Button 
@@ -102,13 +109,14 @@ function Form() {
                 />
             </div>
         </FormStyled>
-    )
+    );
 }
 
 const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
     input, textarea, select {
         font-family: inherit;
         font-size: inherit;
@@ -121,18 +129,22 @@ const FormStyled = styled.form`
         resize: none;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
         color: rgba(34, 34, 96, 0.9);
+        
         &::placeholder {
             color: rgba(34, 34, 96, 0.4);
         }
     }
+
     .input-control {
         input {
             width: 100%;
         }
     }
+
     .selects {
         display: flex;
         justify-content: flex-end;
+        
         select {
             color: rgba(34, 34, 96, 0.4);
             &:focus, &:active {
@@ -140,11 +152,45 @@ const FormStyled = styled.form`
             }
         }
     }
+
     .submit-btn {
         button {
             box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
             &:hover {
                 background: var(--color-green) !important;
+            }
+        }
+    }
+
+    // Media Queries for Mobile Responsiveness
+    @media (max-width: 768px) {
+        gap: 1.5rem;
+
+        input, textarea, select {
+            padding: .4rem .8rem;
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            button {
+                padding: .6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        gap: 1rem;
+
+        input, textarea, select {
+            padding: .3rem .6rem;
+            font-size: 0.8rem;
+        }
+
+        .submit-btn {
+            button {
+                padding: .4rem 1rem;
+                font-size: 0.8rem;
             }
         }
     }

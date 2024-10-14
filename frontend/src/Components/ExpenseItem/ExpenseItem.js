@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import styled from 'styled-components';
 import { rupee, calender, book, food, medical, tv, takeaway, clothing, freelance, circle, comment, trash } from '../../utils/Icons';
 import Button from '../Button/Button';
@@ -69,7 +69,7 @@ function ExpenseItem({
 }
 
 const ExpenseItemStyled = styled.div`
-   background: #FCF6F9;
+    background: #FCF6F9;
     border: 2px solid #FFFFFF;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
     border-radius: 20px;
@@ -80,7 +80,8 @@ const ExpenseItemStyled = styled.div`
     gap: 1rem;
     width: 100%;
     color: #222260;
-    .icon{
+
+    .icon {
         width: 80px;
         height: 80px;
         border-radius: 20px;
@@ -89,21 +90,24 @@ const ExpenseItemStyled = styled.div`
         align-items: center;
         justify-content: center;
         border: 2px solid #FFFFFF;
-        i{
+
+        i {
             font-size: 2.6rem;
         }
     }
 
-    .content{
+    .content {
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: .2rem;
-        h5{
+
+        h5 {
             font-size: 1.3rem;
             padding-left: 2rem;
             position: relative;
-            &::before{
+
+            &::before {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -116,20 +120,54 @@ const ExpenseItemStyled = styled.div`
             }
         }
 
-        .inner-content{
+        .inner-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .text{
+
+            .text {
                 display: flex;
                 align-items: center;
                 gap: 1.5rem;
-                p{
+
+                p {
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
                     color: var(--primary-color);
                     opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    // Mobile responsiveness
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem;
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 0.5rem;
+            i {
+                font-size: 2rem;
+            }
+        }
+
+        .content {
+            h5 {
+                font-size: 1.1rem;
+                padding-left: 0;
+            }
+
+            .inner-content {
+                flex-direction: column;
+                align-items: flex-start;
+
+                .text {
+                    gap: 0.5rem;
                 }
             }
         }

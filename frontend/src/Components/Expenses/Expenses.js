@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
 import ExpenseForm from './ExpenseForm';
-import ExpenseItem from '../ExpenseItem/ExpenseItem';  // Use the new ExpenseItem
+import ExpenseItem from '../ExpenseItem/ExpenseItem';
 
 function Expenses() {
     const { expenses, getExpenses, deleteExpense, totalExpenses } = useGlobalContext();
@@ -46,11 +46,12 @@ function Expenses() {
     );
 }
 
-
 const ExpenseStyled = styled.div`
     display: flex;
+    flex-direction: column; /* Stack elements vertically on small screens */
     overflow: auto;
-    .total-income{
+
+    .total-income {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,19 +63,41 @@ const ExpenseStyled = styled.div`
         margin: 1rem 0;
         font-size: 2rem;
         gap: .5rem;
-        span{
+
+        span {
             font-size: 2.5rem;
             font-weight: 800;
             color: red;
         }
     }
-    .income-content{
+
+    .income-content {
         display: flex;
         gap: 2rem;
-        .incomes{
+
+        .form-container {
             flex: 1;
+        }
+
+        .incomes {
+            flex: 2; /* Give more space to expenses list */
+        }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .income-content {
+            flex-direction: column; /* Stack elements vertically */
+            gap: 1rem; /* Reduced gap for smaller screens */
+        }
+
+        .total-income {
+            font-size: 1.5rem; /* Smaller font size */
+            span {
+                font-size: 2rem; /* Smaller span size */
+            }
         }
     }
 `;
 
-export default Expenses
+export default Expenses;

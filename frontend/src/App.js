@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react'; 
 import styled from 'styled-components';
 import bg from './img/bg.png';
 import { MainLayout } from './styles/Layouts';
@@ -13,36 +13,30 @@ import { useGlobalContext } from './context/globalContext';
 import ViewTransactions from './Components/ViewTransactions/ViewTransactions';
 
 function App() {
-    const { token, setToken } = useGlobalContext(); // Access global context
-    const [active, setActive] = useState(0); // Default to 0 if no token
+    const { token, setToken } = useGlobalContext();
+    const [active, setActive] = useState(0);
 
-    // If there's no token, set active to 0 (Login or Register only)
     useEffect(() => {
         if (!token) {
-            setActive(0); // Ensure Login/Register is shown when no token
+            setActive(0);
         }
     }, [token]);
 
-    // Handle login success
     const handleLogin = (token) => {
-        setToken(token); // Store token in context
-        setActive(1); // Redirect to dashboard after login
+        setToken(token);
+        setActive(1);
     };
 
-    // Handle logout
     const handleLogout = () => {
-        setToken(null); // Clear token on logout
-        setActive(0); // Reset to default page on logout
+        setToken(null);
+        setActive(0);
     };
 
-    // Control what content is displayed based on authentication and active page
     const displayData = () => {
         if (!token) {
-            // Show only Login/Register when not authenticated
             return active === 2 ? <Register /> : <Login onLogin={handleLogin} />;
         }
 
-        // When authenticated, display based on active page
         switch (active) {
             case 1:
                 return <Dashboard onLogout={handleLogout} />;
@@ -57,14 +51,12 @@ function App() {
         }
     };
 
-    // Memoize the Orb component to prevent unnecessary re-renders
     const orbMemo = useMemo(() => <Orb />, []);
 
     return (
         <AppStyled bg={bg} className="App">
             {orbMemo}
             <MainLayout>
-                {/* Conditionally render Navigation only if token is present */}
                 {token && <Navigation active={active} setActive={setActive} onLogout={handleLogout} />}
                 <main>
                     {displayData()}
@@ -76,8 +68,9 @@ function App() {
 
 const AppStyled = styled.div`
   height: 100vh;
-  background-image: url(${props => props.bg});
+  background-image: url(${(props) => props.bg});
   position: relative;
+
   main {
     flex: 1;
     background: rgba(252, 246, 249, 0.78);
@@ -85,8 +78,39 @@ const AppStyled = styled.div`
     backdrop-filter: blur(4.5px);
     border-radius: 32px;
     overflow-x: hidden;
+
     &::-webkit-scrollbar {
-      width: 0;
+      width: 0; /* Hide scrollbar */
+    }
+  }
+
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    main {
+      border-radius: 16px; /* Reduced border radius */
+      padding: 1rem; /* Add padding for smaller screens */
+      overflow-y: auto; /* Allow vertical scrolling */
+    }
+
+    /* Adjust Navigation for mobile */
+    nav {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      align-items: center;
+      width: 100%; /* Full width for navigation */
+    }
+  }
+
+  /* Further adjustments for very small screens */
+  @media (max-width: 480px) {
+    main {
+      padding: 0.5rem; /* Less padding */
+    }
+    
+    /* Ensure that the orb component is smaller on very small screens */
+    .orb {
+      width: 50px; /* Smaller orb size */
+      height: 50px; /* Smaller orb size */
     }
   }
 `;
