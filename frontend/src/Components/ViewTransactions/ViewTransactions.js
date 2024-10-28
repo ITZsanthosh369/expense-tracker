@@ -6,7 +6,7 @@ import IncomeItem from '../IncomeItem/IncomeItem'; // For incomes
 import ExpenseItem from '../ExpenseItem/ExpenseItem'; // For expenses
 
 const ViewTransactions = () => {
-    const { incomes, expenses } = useGlobalContext();
+    const { incomes,deleteExpense, expenses } = useGlobalContext();
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
@@ -37,6 +37,7 @@ const ViewTransactions = () => {
                                     date={transaction.date} 
                                     category={transaction.category} 
                                     indicatorColor="var(--color-green)"
+                                    deleteItem={deleteExpense}
                                 />
                             ) : (
                                 <ExpenseItem
