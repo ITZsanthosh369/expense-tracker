@@ -1,5 +1,5 @@
 import React from 'react'
-import {Chart as ChartJs, 
+import { Chart as ChartJs, 
     CategoryScale,
     LinearScale,
     PointElement,
@@ -9,8 +9,7 @@ import {Chart as ChartJs,
     Legend,
     ArcElement,
 } from 'chart.js'
-
-import {Line} from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext'
 import { dateFormat } from '../../utils/dateFormat'
@@ -27,42 +26,35 @@ ChartJs.register(
 )
 
 function Chart() {
-    const {incomes, expenses} = useGlobalContext()
+    const { incomes, expenses } = useGlobalContext()
+
+    // Combine and sort incomes and expenses by date in descending order
+    const sortedIncomes = [...incomes].sort((a, b) => new Date(b.date) - new Date(a.date))
+    const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date))
 
     const data = {
-        labels: incomes.map((inc) =>{
-            const {date} = inc
+        labels: sortedIncomes.map((inc) => {
+            const { date } = inc
             return dateFormat(date)
         }),
         datasets: [
             {
                 label: 'Income',
-                data: [
-                    ...incomes.map((income) => {
-                        const {amount} = income
-                        return amount
-                    })
-                ],
+                data: sortedIncomes.map((income) => income.amount),
                 backgroundColor: 'green',
-                tension: .2
+                tension: 0.2
             },
             {
                 label: 'Expenses',
-                data: [
-                    ...expenses.map((expense) => {
-                        const {amount} = expense
-                        return amount
-                    })
-                ],
+                data: sortedExpenses.map((expense) => expense.amount),
                 backgroundColor: 'red',
-                tension: .2
+                tension: 0.2
             }
         ]
     }
 
-
     return (
-        <ChartStyled >
+        <ChartStyled>
             <Line data={data} />
         </ChartStyled>
     )
