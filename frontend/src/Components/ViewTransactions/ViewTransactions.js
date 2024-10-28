@@ -37,7 +37,7 @@ const ViewTransactions = () => {
                                     date={transaction.date} 
                                     category={transaction.category} 
                                     indicatorColor="var(--color-green)"
-                                    deleteItem={deleteExpense}
+                                    deleteItem={deleteIncome}
                                 />
                             ) : (
                                 <ExpenseItem
@@ -49,7 +49,7 @@ const ViewTransactions = () => {
                                     date={transaction.date} 
                                     category={transaction.category} 
                                     indicatorColor="red"
-                                    deleteItem={deleteIncome}
+                                    deleteItem={deleteExpense}
                                 />
                             )
                         ))}
