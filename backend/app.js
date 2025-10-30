@@ -9,12 +9,33 @@ const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(express.json());
+
+// Configure CORS: allow the deployed frontend, localhost (for development),
+// or an explicit FRONTEND_URL from environment. This avoids hard-blocking
+// requests from other origins while still allowing your app to function.
+const allowedOrigins = [
+    process.env.FRONTEND_URL, // optional, set in env when deploying
+    'https://expense-tracker-fzdr.vercel.app', // existing deployed frontend
+    'http://localhost:3000', // react dev server
+    'http://127.0.0.1:3000'
+].filter(Boolean);
+
 const corsOptions = {
-    origin: 'https://expense-tracker-fzdr.vercel.app', // Your Vercel frontend URL
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        }
+        // For debugging, you can change this to `callback(null, true)` to allow all origins.
+        return callback(new Error('Not allowed by CORS'));
+    },
     optionsSuccessStatus: 200,
-  };
-  
-  app.use(cors(corsOptions));
+};
+
+app.use(cors(corsOptions));
+// Enable pre-flight for all routes
+app.options('*', cors(corsOptions));
 
 // Dynamically load all routes
 readdirSync('./routes').map((routeFile) => {
