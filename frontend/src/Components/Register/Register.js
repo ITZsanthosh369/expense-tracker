@@ -13,7 +13,7 @@ function Register() {
         e.preventDefault();
         try {
             // Change 'username' to 'name'
-            const response = await axios.post('https://trackx-qbs68ou4.b4a.run/api/v1/auth/register', { username: name, email, password });
+            const response = await axios.post('https://expense-tracker-h4erwsfus-itzsanthosh369s-projects.vercel.app/api/v1/auth/register', { username: name, email, password });
             setSuccess('Registration successful!');
             setError(null); // Reset any previous errors
             console.log(response.data); // Handle successful response
