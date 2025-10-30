@@ -4,9 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useGlobalContext } from '../../context/globalContext';
 
-const BASE_URL = "https://expense-tracker-h4erwsfus-itzsanthosh369s-projects.vercel.app/api/v1/auth/";
-
-function Login({ onLogin }) {
+    const BASE_URL = "https://expensetracker-production-4cc5.up.railway.app/api/v1/auth/";function Login({ onLogin }) {
     const { setToken } = useGlobalContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
