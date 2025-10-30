@@ -8,7 +8,7 @@ Simple expense/income tracker with a Node/Express backend and a React frontend.
 - `frontend/` — React app (components under `src/Components`).
 
 ### Prerequisites
-
+hi
 - Node.js (16+) and npm
 - A MongoDB connection string
 
