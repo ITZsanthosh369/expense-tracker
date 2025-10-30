@@ -21,24 +21,21 @@ exports.registerUser = async (req, res) => {
 
 // Login user
 exports.loginUser = async (req, res) => {
-    console.log("In login uth")
     const { email, password } = req.body;
-    console.log(email)
-    console.log(password)
+    
     try {
-        console.log(email)
-        console.log(password)
         const user = await User.findOne({ email });
-        console.log({user})
+        
         if (!user || !(await user.comparePassword(password))) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
+        
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.status(200).json({ token });
     } catch (error) {
-        res.status(400).json({ error: 'Error logging in user' });
+        console.error('Login error:', error);
+        res.status(500).json({ error: 'Error logging in user' });
     }
-    console.log(email)
 };
 
 // Protect middleware (for protected routes)

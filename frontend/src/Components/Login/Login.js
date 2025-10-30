@@ -12,17 +12,19 @@ import { useGlobalContext } from '../../context/globalContext';
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log({email,})
+        setError(''); // Clear previous errors
         try {
-            console.log(email,password);
             const response = await axios.post(`${BASE_URL}login`, { email, password })
             const token = response.data.token; // Assuming the token is returned in this format
             setToken(token); // Store token in global context
             onLogin(token); // Call onLogin to set the authenticated state
         } catch (err) {
-            console.log(email,password)
-            setError('Invalid credentials'); // Handle error appropriately
-            console.error(err);
+            if (err.response?.status === 401) {
+                setError('Invalid email or password. Please check your credentials and try again.');
+            } else {
+                setError('Login failed. Please try again later.');
+            }
+            console.error('Login error:', err);
         }
     };
 
