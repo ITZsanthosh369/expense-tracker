@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { db } = require('./db/db');
+const path = require('path');
 const { readdirSync } = require('fs');
 require('dotenv').config();
 
@@ -24,9 +25,10 @@ app.use(cors({
 // Ensure OPTIONS preflight requests are handled
 app.options('*', cors());
 
-// Dynamically load all routes
-readdirSync('./routes').map((routeFile) => {
-    const route = require('./routes/' + routeFile);
+// Dynamically load all routes using absolute path
+const routesPath = path.join(__dirname, 'routes');
+readdirSync(routesPath).map((routeFile) => {
+    const route = require(path.join(routesPath, routeFile));
     app.use('/api/v1', route); // This is where the route is being used
 });
 
@@ -46,7 +48,10 @@ if (require.main === module) {
     app.listen(PORT, () => {
         console.log('Listening on port:', PORT);
     });
+} else {
+    // For serverless/Vercel deployment, connect to DB when module is imported
+    db().catch((err) => console.error('DB connection error:', err));
 }
 
-// Export app for testing
+// Export app for testing and serverless deployment
 module.exports = app;
