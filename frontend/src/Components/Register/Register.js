@@ -1,27 +1,59 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 function Register() {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        
+        // Validate password match
+        if (password !== confirmPassword) {
+            setError('Passwords do not match!');
+            return;
+        }
+        
+        // Validate password strength
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long!');
+            return;
+        }
+        
         try {
-            // Change 'username' to 'name'
-            const response = await axios.post('https://expensetracker-production-4cc5.up.railway.app/api/v1/auth/register', { username: name, email, password });
-            setSuccess('Registration successful!');
-            setError(null); // Reset any previous errors
-            console.log(response.data); // Handle successful response
+            const response = await axios.post('https://expensetracker-production-4cc5.up.railway.app/api/v1/auth/register', { 
+                username: name, 
+                email, 
+                password 
+            });
+            setSuccess('Registration successful! Redirecting to login...');
+            setError(null);
+            
+            // Clear form
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+            
+            // Redirect to login after 2 seconds
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         } catch (err) {
-            // Log the error response to get detailed information
             console.error('Registration error:', err.response ? err.response.data : err.message);
-            setError('Registration failed. Please try again.'); // You can customize this message based on the error type
-            setSuccess(null); // Reset any previous success messages
+            if (err.response?.data?.error) {
+                setError(err.response.data.error);
+            } else {
+                setError('Registration failed. Please try again.');
+            }
+            setSuccess(null);
         }
     };
 
@@ -47,9 +79,17 @@ function Register() {
                 />
                 <input 
                     type="password" 
-                    placeholder="Password" 
+                    placeholder="Password (min 6 characters)" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
+                    required
+                    minLength={6}
+                />
+                <input 
+                    type="password" 
+                    placeholder="Confirm Password" 
+                    value={confirmPassword} 
+                    onChange={(e) => setConfirmPassword(e.target.value)} 
                     required
                 />
                 <button type="submit">Register</button>
